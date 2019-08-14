@@ -1,0 +1,41 @@
+﻿@model IEnumerable<CatApp.ViewModels.ProdVM>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<article>
+
+
+    <ul class="grid">
+        @foreach (var item in Model)
+        {
+            <li>
+                <div class="producto">
+                    <img src=@Html.DisplayFor(modelItem => item.Base64String ) alt="dsdjsklj" />
+
+                    <details>
+                        <summary>
+                            @Html.DisplayFor(modelItem => item.ProductName)
+
+                        </summary>
+                        <p> @Html.DisplayFor(modelItem => item.Stock) </p>
+                        <p> @Html.DisplayFor(modelItem => item.Description) </p>
+                        <p> @Html.DisplayFor(modelItem => item.Category) </p>
+                        <p> @Html.DisplayFor(modelItem => item.UntrustedName)</p>
+                        <p> @Html.DisplayFor(modelItem => item.Size) </p>
+                        <p> @Html.DisplayFor(modelItem => item.UploadDT)</p>
+                        <div>
+                            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                        </div>
+                    </details>
+                </div>
+            </li>
+        }
+    </ul>
+</article>

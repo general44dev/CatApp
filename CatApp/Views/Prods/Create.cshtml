@@ -1,0 +1,170 @@
+﻿@model CatApp.ViewModels.ProdVM
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>ProdVM</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form id="uploadForm"  method="post"
+              enctype="multipart/form-data" onsubmit="AJAXSubmit(this);return false;">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group">
+                <label asp-for="ProductName" class="control-label"></label>
+                <input asp-for="ProductName" class="form-control" />
+                <span asp-validation-for="ProductName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Stock" class="control-label"></label>
+                <input asp-for="Stock" class="form-control" />
+                <span asp-validation-for="Stock" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Category" class="control-label"></label>
+                <input asp-for="Category" class="form-control" />
+                <span asp-validation-for="Category" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+
+
+            <div class="form-group">
+                <label asp-for="Note" class="control-label"></label>
+                <input asp-for="Note" class="form-control" />
+                <span asp-validation-for="Note" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label for="file" class="control-label">File</label>
+                <input id="file" type="file" name="file" class="form-control" />
+
+
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="CreateAsync" class="btn btn-primary" />
+            </div>
+            <div style="margin-top:15px">
+                <output form="uploadForm" name="result"></output>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+<img id="iprev" alt="Image preview...">
+<canvas id="newimage"></canvas>
+
+@section Scripts {
+    <script>
+        "use strict";
+
+        const input = document.getElementById('file');
+        input.addEventListener('change', previewFile);
+        var canvas = document.getElementById('newimage');
+        var ctx = canvas.getContext('2d');
+        var preview = document.getElementById('iprev');
+
+
+        function previewFile() {
+            var canvas = document.getElementById('newimage');
+            var ctx = canvas.getContext('2d');
+
+            var preview = document.getElementById('iprev');
+
+            var file = document.getElementById("file").files[0];
+            var reader = new FileReader();
+            reader.addEventListener("load", function () {
+                var img = new Image();
+                img.addEventListener("load", function () {
+
+                    let iWidth = img.width;
+                    let iHeight = img.height;
+                    let originW = 0;
+                    let originH = 0;
+                    canvas.width = 640;
+                    canvas.height = 640;
+                    if (iWidth === iHeight) {
+                        ctx.drawImage(img, 0, 0);
+                    }
+                    else if (iWidth >= iHeight) {
+                        originW = Math.trunc((iWidth - iHeight) / 2);
+                        ctx.drawImage(img, originW, 0, iHeight, iHeight, 0, 0, 640, 640);
+
+                    }
+                    else {
+                        originH = Math.trunc((iHeight - iWidth) / 2);
+                        ctx.drawImage(img, 0, originH, iWidth, iWidth, 0, 0, 640, 640);
+                    }
+                }, false);
+                img.src = reader.result;
+
+
+
+
+            }, false);
+
+            if (file) {
+                reader.readAsDataURL(file);
+            }
+
+        }
+        function dataURItoBlob(dataURI) {
+            let binary = atob(dataURI.split(',')[1]);
+            let array = [];
+            for (var i = 0; i < binary.length; i++) {
+                array.push(binary.charCodeAt(i));
+            }
+            return new Blob([new Uint8Array(array)], { type: 'image/jpeg' });
+        }
+
+        function AJAXSubmit(oFormElement) {
+            var canvas = document.getElementById('newimage');
+            var ctx = canvas.getContext('2d');
+
+            var oReq = new XMLHttpRequest();
+            oReq.onload = function (e) {
+                oFormElement.elements.namedItem("result").value =
+                    'Result: ' + this.status + ' ' + this.statusText +
+                    ' -- ' + this.responseText;
+            };
+            oReq.open("post", "CreateAsync");
+            oReq.setRequestHeader("RequestVerificationToken",
+                oFormElement.elements.namedItem("__RequestVerificationToken").value);
+            var fd = new FormData();
+            var urli = canvas.toDataURL('image/jpeg');
+            var newBlob = dataURItoBlob(urli);
+
+
+            fd.set("file", newBlob, "image.jpg");
+            // fd.append("file", oFormElement.elements.namedItem("file").files[0], "file.jpg");
+            fd.append("Note", oFormElement.elements.namedItem("Note").value);
+            fd.append("Name", oFormElement.elements.namedItem("ProductName").value);
+            fd.append("Description", oFormElement.elements.namedItem("Description").value);
+            fd.append("Categoria", oFormElement.elements.namedItem("Category").value);
+            fd.append("Stock", oFormElement.elements.namedItem("Stock").value);
+
+
+            oReq.send(fd);
+
+        }
+
+        function getCookie(name) {
+            var value = "; " + document.cookie;
+            var parts = value.split("; " + name + "=");
+            if (parts.length == 2) return parts.pop().split(";").shift();
+        }
+    </script>
+
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

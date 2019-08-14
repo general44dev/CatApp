@@ -1,0 +1,71 @@
+﻿{
+  "runtime": "NetCore22",
+  "defaultVariables": null,
+  "documentGenerator": {
+    "fromDocument": {
+      "json": "{\r\n  \"x-generator\": \"NSwag v13.0.4.0 (NJsonSchema v10.0.21.0 (Newtonsoft.Json v11.0.0.0))\",\r\n  \"swagger\": \"2.0\",\r\n  \"info\": {\r\n    \"title\": \"My Title\",\r\n    \"version\": \"1.0.0\"\r\n  },\r\n  \"host\": \"localhost:44382\",\r\n  \"schemes\": [\r\n    \"https\"\r\n  ],\r\n  \"paths\": {\r\n    \"/api/Products\": {\r\n      \"get\": {\r\n        \"tags\": [\r\n          \"Products\"\r\n        ],\r\n        \"operationId\": \"Products_GetAll\",\r\n        \"produces\": [\r\n          \"text/plain\",\r\n          \"application/json\",\r\n          \"text/json\"\r\n        ],\r\n        \"responses\": {\r\n          \"200\": {\r\n            \"x-nullable\": false,\r\n            \"description\": \"\",\r\n            \"schema\": {\r\n              \"type\": \"array\",\r\n              \"items\": {\r\n                \"$ref\": \"#/definitions/Product\"\r\n              }\r\n            }\r\n          }\r\n        }\r\n      },\r\n      \"post\": {\r\n        \"tags\": [\r\n          \"Products\"\r\n        ],\r\n        \"operationId\": \"Products_Create\",\r\n        \"consumes\": [\r\n          \"application/json-patch+json\",\r\n          \"application/json\",\r\n          \"text/json\",\r\n          \"application/*+json\"\r\n        ],\r\n        \"produces\": [\r\n          \"text/plain\",\r\n          \"application/json\",\r\n          \"text/json\"\r\n        ],\r\n        \"parameters\": [\r\n          {\r\n            \"name\": \"product\",\r\n            \"in\": \"body\",\r\n            \"required\": true,\r\n            \"schema\": {\r\n              \"$ref\": \"#/definitions/Product\"\r\n            },\r\n            \"x-nullable\": false\r\n          }\r\n        ],\r\n        \"responses\": {\r\n          \"200\": {\r\n            \"x-nullable\": false,\r\n            \"description\": \"\",\r\n            \"schema\": {\r\n              \"$ref\": \"#/definitions/Product\"\r\n            }\r\n          }\r\n        }\r\n      }\r\n    },\r\n    \"/api/Products/{id}\": {\r\n      \"get\": {\r\n        \"tags\": [\r\n          \"Products\"\r\n        ],\r\n        \"operationId\": \"Products_Get\",\r\n        \"produces\": [\r\n          \"text/plain\",\r\n          \"application/json\",\r\n          \"text/json\"\r\n        ],\r\n        \"parameters\": [\r\n          {\r\n            \"type\": \"string\",\r\n            \"name\": \"id\",\r\n            \"in\": \"path\",\r\n            \"required\": true,\r\n            \"x-nullable\": true\r\n          }\r\n        ],\r\n        \"responses\": {\r\n          \"200\": {\r\n            \"x-nullable\": false,\r\n            \"description\": \"\",\r\n            \"schema\": {\r\n              \"$ref\": \"#/definitions/Product\"\r\n            }\r\n          }\r\n        }\r\n      },\r\n      \"put\": {\r\n        \"tags\": [\r\n          \"Products\"\r\n        ],\r\n        \"operationId\": \"Products_Update\",\r\n        \"consumes\": [\r\n          \"application/json-patch+json\",\r\n          \"application/json\",\r\n          \"text/json\",\r\n          \"application/*+json\"\r\n        ],\r\n        \"parameters\": [\r\n          {\r\n            \"type\": \"string\",\r\n            \"name\": \"id\",\r\n            \"in\": \"path\",\r\n            \"required\": true,\r\n            \"x-nullable\": true\r\n          },\r\n          {\r\n            \"name\": \"productIn\",\r\n            \"in\": \"body\",\r\n            \"required\": true,\r\n            \"schema\": {\r\n              \"$ref\": \"#/definitions/Product\"\r\n            },\r\n            \"x-nullable\": false\r\n          }\r\n        ],\r\n        \"responses\": {\r\n          \"200\": {\r\n            \"x-nullable\": true,\r\n            \"description\": \"\",\r\n            \"schema\": {\r\n              \"type\": \"file\"\r\n            }\r\n          }\r\n        }\r\n      },\r\n      \"delete\": {\r\n        \"tags\": [\r\n          \"Products\"\r\n        ],\r\n        \"operationId\": \"Products_Delete\",\r\n        \"parameters\": [\r\n          {\r\n            \"type\": \"string\",\r\n            \"name\": \"id\",\r\n            \"in\": \"path\",\r\n            \"required\": true,\r\n            \"x-nullable\": true\r\n          }\r\n        ],\r\n        \"responses\": {\r\n          \"200\": {\r\n            \"x-nullable\": true,\r\n            \"description\": \"\",\r\n            \"schema\": {\r\n              \"type\": \"file\"\r\n            }\r\n          }\r\n        }\r\n      }\r\n    }\r\n  },\r\n  \"definitions\": {\r\n    \"Product\": {\r\n      \"type\": \"object\",\r\n      \"required\": [\r\n        \"Stock\"\r\n      ],\r\n      \"properties\": {\r\n        \"Id\": {\r\n          \"type\": \"string\"\r\n        },\r\n        \"ProductName\": {\r\n          \"title\": \"Nombre\",\r\n          \"type\": \"string\"\r\n        },\r\n        \"Stock\": {\r\n          \"title\": \"Stock\",\r\n          \"type\": \"number\",\r\n          \"format\": \"decimal\"\r\n        },\r\n        \"Category\": {\r\n          \"title\": \"File Name\",\r\n          \"type\": \"string\"\r\n        },\r\n        \"Description\": {\r\n          \"type\": \"string\"\r\n        },\r\n        \"ProdPhoto\": {\r\n          \"$ref\": \"#/definitions/ProdPhoto\"\r\n        }\r\n      }\r\n    },\r\n    \"ProdPhoto\": {\r\n      \"type\": \"object\",\r\n      \"required\": [\r\n        \"Size\",\r\n        \"UploadDT\"\r\n      ],\r\n      \"properties\": {\r\n        \"Id\": {\r\n          \"type\": \"string\"\r\n        },\r\n        \"Content\": {\r\n          \"type\": \"string\",\r\n          \"format\": \"byte\"\r\n        },\r\n        \"UntrustedName\": {\r\n          \"type\": \"string\"\r\n        },\r\n        \"Note\": {\r\n          \"type\": \"string\"\r\n        },\r\n        \"Size\": {\r\n          \"type\": \"integer\",\r\n          \"format\": \"int64\"\r\n        },\r\n        \"UploadDT\": {\r\n          \"type\": \"string\",\r\n          \"format\": \"date-time\"\r\n        }\r\n      }\r\n    }\r\n  }\r\n}",
+      "url": "https://localhost:44382/swagger/v1/swagger.json",
+      "output": null
+    }
+  },
+  "codeGenerators": {
+    "openApiToTypeScriptClient": {
+      "className": "{controller}Client",
+      "moduleName": "",
+      "namespace": "",
+      "typeScriptVersion": 2.7,
+      "template": "Fetch",
+      "promiseType": "Promise",
+      "httpClass": "HttpClient",
+      "useSingletonProvider": false,
+      "injectionTokenType": "OpaqueToken",
+      "rxJsVersion": 6.0,
+      "dateTimeType": "Date",
+      "nullValue": "Undefined",
+      "generateClientClasses": true,
+      "generateClientInterfaces": false,
+      "generateOptionalParameters": false,
+      "exportTypes": true,
+      "wrapDtoExceptions": false,
+      "exceptionClass": "ApiException",
+      "clientBaseClass": null,
+      "wrapResponses": false,
+      "wrapResponseMethods": [],
+      "generateResponseClasses": true,
+      "responseClass": "SwaggerResponse",
+      "protectedMethods": [],
+      "configurationClass": null,
+      "useTransformOptionsMethod": false,
+      "useTransformResultMethod": false,
+      "generateDtoTypes": true,
+      "operationGenerationMode": "MultipleClientsFromOperationId",
+      "markOptionalProperties": true,
+      "generateCloneMethod": false,
+      "typeStyle": "KnockoutClass",
+      "classTypes": [],
+      "extendedClasses": [],
+      "extensionCode": null,
+      "generateDefaultValues": true,
+      "excludedTypeNames": [],
+      "excludedParameterNames": [],
+      "handleReferences": false,
+      "generateConstructorInterface": true,
+      "convertConstructorInterfaceData": false,
+      "importRequiredTypes": true,
+      "useGetBaseUrlMethod": false,
+      "baseUrlTokenName": "API_BASE_URL",
+      "queryNullValue": "",
+      "inlineNamedDictionaries": false,
+      "inlineNamedAny": true,
+      "templateDirectory": null,
+      "typeNameGeneratorType": null,
+      "propertyNameGeneratorType": null,
+      "enumNameGeneratorType": null,
+      "serviceHost": null,
+      "serviceSchemes": [
+        "https"
+      ],
+      "output": null
+    }
+  }
+}
